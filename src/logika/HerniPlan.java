@@ -32,12 +32,12 @@ public class HerniPlan {
      */
     private void defaultSetUp() {
         // vytvářejí se jednotlivé prostory
-        Prostor namesti = new Prostor("náměstí","Nacházíte se na prostranství plném prapodivných lidí. Všichni na sebe nahlas křičí a ty bys měl odsud rychle vypadnout.");
-        Prostor hospoda = new Prostor("hospoda", "Hospodský nalévá jednu whisky za druhou. Tato špeluňka je mezi lidmi známá spíše jako herna.");
-        Prostor kovar = new Prostor("kovárna","Žár roztaveného železa je cítit hned při otevření vchodových dveří. S údivem na tebe koukají dva trpaslíci.");
-        Prostor predmesti = new Prostor("předměstí","Je odsud krásný výhled na les a na opačné se tyčí hradby města.");
-        Prostor les = new Prostor("les","Kdo může, raději se tady nezastavuje. Les je proslulý neustálým loupením. Dávejte si pozor, snadno můžete spadnout do nory podivným bytostem.");
-        Prostor nora = new Prostor("nora","Prostor jako stvořený pro věznění osob, smrad a špína všude kde se podíváš.");
+        Prostor namesti = new Prostor("náměstí","Nacházíte se na prostranství plném prapodivných lidí. Všichni na sebe nahlas křičí a ty bys měl odsud rychle vypadnout.", 50, 40);
+        Prostor hospoda = new Prostor("hospoda", "Hospodský nalévá jednu whisky za druhou. Tato špeluňka je mezi lidmi známá spíše jako herna.", 10, 20);
+        Prostor kovar = new Prostor("kovárna","Žár roztaveného železa je cítit hned při otevření vchodových dveří. S údivem na tebe koukají dva trpaslíci.", 20, 40);
+        Prostor predmesti = new Prostor("předměstí","Je odsud krásný výhled na les a na opačné se tyčí hradby města.", 15, 200);
+        Prostor les = new Prostor("les","Kdo může, raději se tady nezastavuje. Les je proslulý neustálým loupením. Dávejte si pozor, snadno můžete spadnout do nory podivným bytostem.", 15, 60);
+        Prostor nora = new Prostor("nora","Prostor jako stvořený pro věznění osob, smrad a špína všude kde se podíváš.", 10, 30);
         
         // přiřazují se průchody mezi prostory (sousedící prostory)
         namesti.setVychod(hospoda);
