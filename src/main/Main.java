@@ -5,6 +5,8 @@
  */
 package main;
 
+import GUI.Mapa;
+import GUI.MenuLista;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -13,13 +15,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import logika.*;
 import uiText.TextoveRozhrani;
@@ -33,17 +32,24 @@ public class Main extends Application {
     private TextArea centralText;
     private IHra hra;
     private TextField zadejPrikazTextField;
+    
+    private Mapa mapa;
+    private MenuLista menuLista;
 
     @Override
     public void start(Stage primaryStage) {
         hra = new Hra();
+        mapa = new Mapa(hra);
+        menuLista = new MenuLista(hra, this);
+        
         BorderPane borderPane = new BorderPane();
         
         
         centralText = new TextArea();
         centralText.setText(hra.vratUvitani());
         centralText.setEditable(false);
-        
+  
+  
         borderPane.setCenter(centralText);
         
         Label zadejPrikazLabel = new Label("Zadej prikaz: ");
@@ -69,20 +75,14 @@ public class Main extends Application {
                 
             }
         });
-        
-        FlowPane obrazekFlowPane = new FlowPane();
-        obrazekFlowPane.setPrefSize(200, 200);
-        
-        ImageView obrazekImageView = new ImageView(new Image(Main.class.getResourceAsStream("/zdroje/mapa.png"), 300, 300, false, true));
-        
-        obrazekFlowPane.setAlignment(Pos.CENTER);
-        obrazekFlowPane.getChildren().add(obrazekImageView);
+       
         
         FlowPane dolniLista = new FlowPane();
         dolniLista.setAlignment(Pos.CENTER);
         dolniLista.getChildren().addAll(zadejPrikazLabel, zadejPrikazTextField);
         borderPane.setBottom(dolniLista);
-        borderPane.setLeft(obrazekFlowPane);
+        borderPane.setLeft(mapa);
+        borderPane.setTop(menuLista);
         
         Scene scene = new Scene(borderPane, 700, 450);
 
@@ -90,6 +90,14 @@ public class Main extends Application {
 
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
+
+    public TextArea getCentralText() {
+        return centralText;
+    }
+
+    public Mapa getMapa() {
+        return mapa;
     }
 
     /**

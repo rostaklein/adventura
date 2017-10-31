@@ -32,8 +32,8 @@ public class ProstorTest
      */
     @Before
     public void setUp() {
-        namesti = new Prostor("náměstí","Nacházíte se na prostranství plném prapodivných lidí. Všichni na sebe nahlas křičí a ty bys měl odsud rychle vypadnout.");
-        hospoda = new Prostor("hospoda", "Hospodský nalévá jednu whisky za druhou. Tato špeluňka je mezi lidmi známá spíše jako herna.");
+        namesti = new Prostor("náměstí","Nacházíte se na prostranství plném prapodivných lidí. Všichni na sebe nahlas křičí a ty bys měl odsud rychle vypadnout.",20,40);
+        hospoda = new Prostor("hospoda", "Hospodský nalévá jednu whisky za druhou. Tato špeluňka je mezi lidmi známá spíše jako herna.",20,40);
         fontana = new Vec("fontána", "Plná špinavé vody, na dně je pár drobáků, ale nikdo se neodvažuje sáhnout dovnitř.", false, 2000);
         ork = new Postava("orčík", "JÁ VELKÁ ORK! ZABÍT TĚ SNADNO A RYCHLE!!!");
     }

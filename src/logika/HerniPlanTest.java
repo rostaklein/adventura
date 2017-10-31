@@ -33,7 +33,7 @@ public class HerniPlanTest
     public void setUp()
     {
         plan=new HerniPlan();
-        namesti = new Prostor("náměstí","Nacházíte se na prostranství plném prapodivných lidí. Všichni na sebe nahlas křičí a ty bys měl odsud rychle vypadnout.");
+        namesti = new Prostor("náměstí","Nacházíte se na prostranství plném prapodivných lidí. Všichni na sebe nahlas křičí a ty bys měl odsud rychle vypadnout.",12,14);
         aktualniProstor = namesti;
     }
 
