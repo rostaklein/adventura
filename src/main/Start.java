@@ -23,13 +23,14 @@ public class Start
      */
     public static void main(String[] args)
     {
-        
         IHra hra = new Hra();
         TextoveRozhrani ui = new TextoveRozhrani(hra);
-        ui.hraj();
-        System.out.println("Ahoj svete");
-
-        System.out.println("no nazdar");
-    
+        if (args.length >= 0) {
+            ui.hraj();
+        } else {
+            ui.hrajZeSouboru(args[0]);
+        }
     }
+    
+    private Start() {}
 }

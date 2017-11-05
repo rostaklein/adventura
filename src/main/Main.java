@@ -90,6 +90,7 @@ public class Main extends Application {
 
         primaryStage.setScene(scene);
         primaryStage.show();
+        zadejPrikazTextField.requestFocus();
     }
 
     public TextArea getCentralText() {
@@ -118,6 +119,10 @@ public class Main extends Application {
                 System.exit(1);
             }
         }
+    }
+    
+    public void setHra(IHra hra) {
+        this.hra = hra;
     }
 
 }

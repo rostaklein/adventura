@@ -36,7 +36,7 @@ public class MenuLista extends MenuBar{
         
         MenuItem novaHra = new MenuItem("Nová hra");
         //, new ImageView(new Image(Main.class.getResourceAsStream("/zdroje/newgame.png")
-        novaHra.setAccelerator(KeyCombination.keyCombination("Ctrl+N"));
+        novaHra.setAccelerator(KeyCombination.keyCombination("Ctrl+H"));
         
         MenuItem konecHry = new MenuItem("Konec hry");
         
@@ -56,6 +56,7 @@ public class MenuLista extends MenuBar{
             public void handle(ActionEvent event) {
                 hra = new Hra();
                 main.getMapa().newGame(hra);
+                main.setHra(hra);
                 main.getCentralText().setText(hra.vratUvitani());
             }
         });
