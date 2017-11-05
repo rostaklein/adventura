@@ -23,6 +23,7 @@ public class Mapa extends AnchorPane implements Observer{
 
     private IHra hra;
     private Circle tecka;
+    private ImageView postava;
     
     public Mapa(IHra hra){
         this.hra = hra;
@@ -31,13 +32,13 @@ public class Mapa extends AnchorPane implements Observer{
     }
     
     private void init(){
-        ImageView obrazekImageView = new ImageView(new Image(Main.class.getResourceAsStream("/zdroje/mapa.png"), 300, 300, false, true));
-
+        ImageView obrazekImageView = new ImageView(new Image(Main.class.getResourceAsStream("/zdroje/adventura_mapa.png"), 649, 395, true, true));
+        postava = new ImageView(new Image(Main.class.getResourceAsStream("/zdroje/krtek.png"), 71, 85, true, true));
         tecka = new Circle(10, Paint.valueOf("red"));
         
         
         
-        this.getChildren().addAll(obrazekImageView, tecka);
+        this.getChildren().addAll(obrazekImageView, postava);
         
         update();
     }
@@ -51,8 +52,8 @@ public class Mapa extends AnchorPane implements Observer{
     
     @Override
     public void update() {
-        this.setTopAnchor(tecka, hra.getHerniPlan().getAktualniProstor().getPosTop());
-        this.setLeftAnchor(tecka, hra.getHerniPlan().getAktualniProstor().getPosLeft());
+        this.setTopAnchor(postava, hra.getHerniPlan().getAktualniProstor().getPosTop());
+        this.setLeftAnchor(postava, hra.getHerniPlan().getAktualniProstor().getPosLeft());
     }
     
 }

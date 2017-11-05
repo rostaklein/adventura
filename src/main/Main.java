@@ -52,10 +52,11 @@ public class Main extends Application {
   
         borderPane.setCenter(centralText);
         
-        Label zadejPrikazLabel = new Label("Zadej prikaz: ");
+        Label zadejPrikazLabel = new Label("Zadej příkaz: ");
         zadejPrikazLabel.setFont(Font.font("Arial", FontWeight.BOLD, 14));
         
         zadejPrikazTextField = new TextField();
+        zadejPrikazTextField.setPrefWidth(200);
         zadejPrikazTextField.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -84,7 +85,7 @@ public class Main extends Application {
         borderPane.setLeft(mapa);
         borderPane.setTop(menuLista);
         
-        Scene scene = new Scene(borderPane, 700, 450);
+        Scene scene = new Scene(borderPane, 1200, 450);
 
         primaryStage.setTitle("Adventura");
 
