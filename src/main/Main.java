@@ -7,9 +7,11 @@ package main;
 
 import GUI.Mapa;
 import GUI.MenuLista;
+import GUI.Vychody;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -35,12 +37,31 @@ public class Main extends Application {
     
     private Mapa mapa;
     private MenuLista menuLista;
+    private Vychody vychody;
+
+    private Stage stage;
+
+    public Stage getStage() {
+        return stage;
+    }
+
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
+
+    public Vychody getVychody() {
+        return vychody;
+    }
 
     @Override
     public void start(Stage primaryStage) {
         hra = new Hra();
         mapa = new Mapa(hra);
         menuLista = new MenuLista(hra, this);
+        vychody = new Vychody(hra);
+
+        this.setStage(primaryStage);
         
         BorderPane borderPane = new BorderPane();
         
@@ -54,7 +75,7 @@ public class Main extends Application {
         
         Label zadejPrikazLabel = new Label("Zadej příkaz: ");
         zadejPrikazLabel.setFont(Font.font("Arial", FontWeight.BOLD, 14));
-        
+
         zadejPrikazTextField = new TextField();
         zadejPrikazTextField.setPrefWidth(200);
         zadejPrikazTextField.setOnAction(new EventHandler<ActionEvent>() {
@@ -66,8 +87,8 @@ public class Main extends Application {
                 
                 centralText.appendText("\n" + vstupniPrikaz + "\n");
                 centralText.appendText("\n" + odpovedHry + "\n");
-                
                 zadejPrikazTextField.setText("");
+
                 
                 if(hra.konecHry()){
                     zadejPrikazTextField.setEditable(false);
@@ -76,16 +97,21 @@ public class Main extends Application {
                 
             }
         });
-       
-        
+
+        Label vychodyLabel = new Label("Východy: ");
+        vychodyLabel.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+
         FlowPane dolniLista = new FlowPane();
-        dolniLista.setAlignment(Pos.CENTER);
-        dolniLista.getChildren().addAll(zadejPrikazLabel, zadejPrikazTextField);
+        dolniLista.setAlignment(Pos.CENTER_LEFT);
+        dolniLista.setPadding(new Insets(10));
+        dolniLista.setHgap(20);
+        dolniLista.getChildren().addAll(zadejPrikazLabel, zadejPrikazTextField, vychodyLabel, vychody);
         borderPane.setBottom(dolniLista);
         borderPane.setLeft(mapa);
         borderPane.setTop(menuLista);
-        
-        Scene scene = new Scene(borderPane, 1200, 450);
+        //borderPane.setRight(vychody);
+
+        Scene scene = new Scene(borderPane, 1200, 470);
 
         primaryStage.setTitle("Adventura");
 
