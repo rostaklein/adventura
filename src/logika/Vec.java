@@ -3,6 +3,10 @@
 package logika;
 
 
+import javafx.scene.image.Image;
+import main.Main;
+
+import java.awt.*;
 
 /**
  * Třída Vec představuje jednotlivou věc(předmět) ve hře.
@@ -22,6 +26,7 @@ public class Vec
     private String popis;
     private int vaha;
     private boolean prenositelna;
+    private Image obrazek;
     
     //== Konstruktory a tovární metody =============================================
 
@@ -32,13 +37,15 @@ public class Vec
      * @param popis stručný popis použitelnosti věci
      * @param prenositelna boolean, pokud je věc přenostielná, pak prenositelna=true, jinak false
      * @param vaha celočíselná hodnota výhy dané věci, důležitá vlastnost pro přidávání věcí do batohu
+    *  @param obrazekName jméno souboru k obrázku
      */
-    public Vec(String nazev, String popis, boolean prenositelna, int vaha)
+    public Vec(String nazev, String popis, boolean prenositelna, int vaha, String obrazekName)
     {
         this.nazev = nazev;
         this.popis = popis;
         this.prenositelna = prenositelna;
         this.vaha = vaha;
+        this.obrazek = new Image(Main.class.getResourceAsStream("/zdroje/predmety/"+obrazekName));
     }
 
     /**
@@ -54,7 +61,7 @@ public class Vec
      * Vrací popis věci (byl zadán při vytváření prostoru jako parametr
      * konstruktoru)
      *
-     * @return opis věci
+     * @return popis věci
      */
     public String getPopis() {
         return popis;
@@ -77,8 +84,15 @@ public class Vec
     public int getVaha() {
         return vaha;
     }
-    
-    
+
+    public Image getObrazek() {
+        return obrazek;
+    }
+
+    public void setObrazek(Image obrazek) {
+        this.obrazek = obrazek;
+    }
+
     //== Soukromé metody (instancí i třídy) ========================================
 
 }

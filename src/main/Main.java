@@ -5,12 +5,8 @@
  */
 package main;
 
-import GUI.Mapa;
-import GUI.MenuLista;
-import GUI.Vychody;
+import GUI.*;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -18,7 +14,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
@@ -27,7 +24,7 @@ import uiText.TextoveRozhrani;
 
 /**
  *
- * @author xzenj02
+ * @author xzenj02, kler00
  */
 public class Main extends Application {
     
@@ -38,28 +35,25 @@ public class Main extends Application {
     private Mapa mapa;
     private MenuLista menuLista;
     private Vychody vychody;
+    private Predmety predmety;
+    private Postavy postavy;
 
     private Stage stage;
-
-    public Stage getStage() {
-        return stage;
-    }
 
 
     public void setStage(Stage stage) {
         this.stage = stage;
     }
 
-    public Vychody getVychody() {
-        return vychody;
-    }
 
     @Override
     public void start(Stage primaryStage) {
         hra = new Hra();
         mapa = new Mapa(hra);
         menuLista = new MenuLista(hra, this);
-        vychody = new Vychody(hra);
+        vychody = new Vychody(hra, this);
+        predmety = new Predmety(hra, this);
+        postavy = new Postavy(hra, this);
 
         this.setStage(primaryStage);
         
@@ -69,49 +63,50 @@ public class Main extends Application {
         centralText = new TextArea();
         centralText.setText(hra.vratUvitani());
         centralText.setEditable(false);
-  
+        centralText.setWrapText(true);
   
         borderPane.setCenter(centralText);
         
         Label zadejPrikazLabel = new Label("Zadej příkaz: ");
-        zadejPrikazLabel.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+        Font formatTextu = Font.font("Arial", FontWeight.BOLD, 14);
+        zadejPrikazLabel.setFont(formatTextu);
 
         zadejPrikazTextField = new TextField();
-        zadejPrikazTextField.setPrefWidth(200);
-        zadejPrikazTextField.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                
-                String vstupniPrikaz = zadejPrikazTextField.getText();
-                String odpovedHry = hra.zpracujPrikaz(vstupniPrikaz);
-                
-                centralText.appendText("\n" + vstupniPrikaz + "\n");
-                centralText.appendText("\n" + odpovedHry + "\n");
-                zadejPrikazTextField.setText("");
-
-                
-                if(hra.konecHry()){
-                    zadejPrikazTextField.setEditable(false);
-                    centralText.appendText(hra.vratEpilog());
-                }
-                
-            }
+        zadejPrikazTextField.setPrefWidth(150);
+        zadejPrikazTextField.setOnAction(event -> {
+            String vstupniPrikaz = zadejPrikazTextField.getText();
+            zpracujPrikaz(vstupniPrikaz);
+            zadejPrikazTextField.setText("");
         });
 
-        Label vychodyLabel = new Label("Východy: ");
-        vychodyLabel.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+        Label vychodyLabel = new Label("Kam jít: ");
+        vychodyLabel.setFont(formatTextu);
+        Label predmetyLabel = new Label("Předměty zde: ");
+        predmetyLabel.setFont(formatTextu);
+        Label postavyLabel = new Label("Promluv s: ");
+        postavyLabel.setFont(formatTextu);
 
-        FlowPane dolniLista = new FlowPane();
-        dolniLista.setAlignment(Pos.CENTER_LEFT);
-        dolniLista.setPadding(new Insets(10));
-        dolniLista.setHgap(20);
-        dolniLista.getChildren().addAll(zadejPrikazLabel, zadejPrikazTextField, vychodyLabel, vychody);
+
+        HBox prikazy = new HBox();
+        prikazy.setAlignment(Pos.CENTER);
+        prikazy.setPadding(new Insets(10));
+        prikazy.setSpacing(10);
+        prikazy.getChildren().addAll(vychodyLabel, vychody, predmetyLabel, predmety, postavyLabel, postavy);
+
+        HBox textFieldLine = new HBox();
+        textFieldLine.getChildren().addAll(zadejPrikazLabel, zadejPrikazTextField);
+        textFieldLine.setAlignment(Pos.CENTER);
+        textFieldLine.setSpacing(10);
+        VBox dolniLista = new VBox();
+        dolniLista.setAlignment(Pos.CENTER);
+        dolniLista.getChildren().addAll(textFieldLine, prikazy);
+
         borderPane.setBottom(dolniLista);
         borderPane.setLeft(mapa);
         borderPane.setTop(menuLista);
         //borderPane.setRight(vychody);
 
-        Scene scene = new Scene(borderPane, 1200, 470);
+        Scene scene = new Scene(borderPane, 1200, 550);
 
         primaryStage.setTitle("Adventura");
 
@@ -120,13 +115,20 @@ public class Main extends Application {
         zadejPrikazTextField.requestFocus();
     }
 
-    public TextArea getCentralText() {
-        return centralText;
-    }
+    public void zpracujPrikaz(String prikaz){
+        String odpovedHry = hra.zpracujPrikaz(prikaz);
+        centralText.appendText("\n" + prikaz + "\n");
+        centralText.appendText("\n" + odpovedHry + "\n");
 
-    public Mapa getMapa() {
-        return mapa;
-    }
+        if(hra.konecHry()){
+            zadejPrikazTextField.setEditable(false);
+            vychody.setDisable(true);
+            predmety.setDisable(true);
+            postavy.setDisable(true);
+            centralText.appendText(hra.vratEpilog());
+        }
+    };
+
 
     /**
      * @param args the command line arguments
@@ -147,9 +149,23 @@ public class Main extends Application {
             }
         }
     }
-    
-    public void setHra(IHra hra) {
+
+    /**
+     * Přiřazuje novou hru k jednotlivým částem UI.
+     * @param hra
+     */
+    public void newGame(IHra hra){
         this.hra = hra;
+        this.mapa.newGame(hra);
+        this.vychody.newGame(hra);
+        this.predmety.newGame(hra);
+
+        this.vychody.setDisable(false);
+        this.predmety.setDisable(false);
+        this.postavy.setDisable(false);
+
+        this.centralText.setText(hra.vratUvitani());
+        this.zadejPrikazTextField.setEditable(true);
     }
 
 }

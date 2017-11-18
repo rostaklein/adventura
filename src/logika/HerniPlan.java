@@ -61,13 +61,13 @@ public class HerniPlan implements Subject{
         aktualniProstor = namesti;  // hra začíná v domečku
         
         // vytvoříme věci
-        Vec fontana = new Vec("fontána", "Plná špinavé vody, na dně je pár drobáků, ale nikdo se neodvažuje sáhnout dovnitř.", false, 2000);
-        Vec lopata = new Vec("lopata", "Lopata, kterou už dlouho nikdo nepoužíval, těžko říct, jestli už neztratila svou funkčnost.", true, 10);
-        Vec zidle = new Vec("židle", "Stará ztrouchnivělá židle z masivu. Nemá využití.", true, 25);
-        Vec kovadlina = new Vec("kovadlina", "Rozpálená kovadlina, na které malí trpaslíci vyrábí nejrůznější předměty.", false, 250);
-        Vec mec = new Vec("meč", "Tento meč má své nejlepší časy dávno za sebou, ale k obraně by mohl posloužit.", true, 25);
-        Vec saty = new Vec("šaty", "Z nejluxusnějšího hedvábí ušité svatební šaty potěší jistě každou něžnou duši.", true, 10);
-        Vec helma = new Vec("zlatá_helma", "Opravdu težký kus zlata. Třpytí se tak, že by se určitě hodil do sbírky nějakému trpaslíkovi.", true, 40);
+        Vec fontana = new Vec("fontána", "Plná špinavé vody, na dně je pár drobáků, ale nikdo se neodvažuje sáhnout dovnitř.", false, 2000, "fontana.png");
+        Vec lopata = new Vec("lopata", "Lopata, kterou už dlouho nikdo nepoužíval, těžko říct, jestli už neztratila svou funkčnost.", true, 10, "lopata.png");
+        Vec zidle = new Vec("židle", "Stará ztrouchnivělá židle z masivu. Nemá využití.", true, 25, "zidle.png");
+        Vec kovadlina = new Vec("kovadlina", "Rozpálená kovadlina, na které malí trpaslíci vyrábí nejrůznější předměty.", false, 250, "kovadlina.png");
+        Vec mec = new Vec("meč", "Tento meč má své nejlepší časy dávno za sebou, ale k obraně by mohl posloužit.", true, 25,"mec.png");
+        Vec saty = new Vec("šaty", "Z nejluxusnějšího hedvábí ušité svatební šaty potěší jistě každou něžnou duši.", true, 10, "saty.png");
+        Vec helma = new Vec("zlatá_helma", "Opravdu težký kus zlata. Třpytí se tak, že by se určitě hodil do sbírky nějakému trpaslíkovi.", true, 40, "helma.png");
         
         // vložíme věci do prostorů
         namesti.vlozVec(fontana);
@@ -124,7 +124,7 @@ public class HerniPlan implements Subject{
     /**
      *  Metoda manipuluje s aktuálním počtem zlatých, zlaté jde odčítat i přičítat. (Podle znaménka přičítaného čísla.)
      *
-     *@param     změna kladná, nebo záporná
+     *@param částka kladná, nebo záporná
      */
     public void zmenaZlatych(int zmena){
         stavZlatych+=zmena;

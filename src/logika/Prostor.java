@@ -246,4 +246,12 @@ public class Prostor {
     public double getPosTop() {
         return posTop;
     }
+
+    public Map<String, Vec> getVeci() {
+        return veci;
+    }
+
+    public Map<String, Postava> getPostavy() {
+        return postavy;
+    }
 }
