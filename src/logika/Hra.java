@@ -42,14 +42,13 @@ public class Hra implements IHra {
      *  Vrátí úvodní zprávu pro hráče včetně popisu prvního prostoru, kde se hráč nachází.
      */
     public String vratUvitani() {
-        return "START HRY----------------------------Goddard.ver.1.0\n" +
-               "-------------------Vítej jinochu,-------------------\n" +
+        return "Vítej jinochu,\n" +
                "nacházíš se v městě Goddard, uvnitř města i za hradbami\n" +
                "se dějí podivné věci. Z královské rodiny se nedávno\n" +
                "ztratila nejmladší dcera. Tvým úkolem je ji dovést\n" +
                "zpátky k rodině.\n" +
-               "Napište 'napoveda', pokud si nevíte rady, jak hrát dál.\n" +
-               "-------------------Hodně štěstí!-------------------\n" +
+               "Napište 'nápověda', pokud si nevíte rady, jak hrát dál.\n" +
+               "-Hodně štěstí!\n" +
                "\n" +
                herniPlan.getAktualniProstor().dlouhyPopis();
     }
@@ -60,18 +59,17 @@ public class Hra implements IHra {
     @Override
     public String vratEpilog() {
         String textVrat="";
-        String radekCara="--------------------------------------------------------\n";
+        String radekCara="---\n";
         if(vyhra){
             textVrat+=radekCara;
-            textVrat+="----------------GRATULUJI, VYHRÁL/A JSI!----------------\n";
+            textVrat+="GRATULUJI, VYHRÁL/A JSI!\n";
             textVrat+=radekCara;
         }else{
             textVrat+=radekCara;
-            textVrat+="----BOHUŽEL, TENTOKRÁT TO NEVYŠLO... PROHRÁL/A JSI------\n";
+            textVrat+="BOHUŽEL, TENTOKRÁT TO NEVYŠLO... PROHRÁL/A JSI\n";
             textVrat+=radekCara;
         }
-        textVrat+="KONEC HRY----------------------------Goddard.ver.1.0\n" +
-                  "--------------------Díky za hru.--------------------\n";
+        textVrat+="Díky za hru.\n";
         return textVrat;
     }
     
@@ -145,5 +143,8 @@ public class Hra implements IHra {
      public HerniPlan getHerniPlan(){
         return herniPlan;
      }
-    
+
+    public boolean isVyhra() {
+        return vyhra;
+    }
 }

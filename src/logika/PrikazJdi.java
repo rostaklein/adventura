@@ -58,6 +58,7 @@ class PrikazJdi implements IPrikaz {
                     return "Vrhnul se na tebe šilený ork, neměl ses čím ubránit. Příště to zkus třeba s mečem. Bohužel, ale hra je u konce.";
                 }else{
                     plan.getAktualniProstor().vlozVec(plan.getAktualniProstor().getPostava("ork").getCoMa());
+                    plan.notifyObservers();
                     plan.getAktualniProstor().smazPostavu("ork");
                     return "Tak tak ses orkovi ubránil mečem co máš u sebe, vypadla z něj zlatá helma";
                 }

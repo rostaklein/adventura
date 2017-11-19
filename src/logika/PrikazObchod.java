@@ -64,6 +64,7 @@ class PrikazObchod implements IPrikaz {
              }else{
                  if(plan.getBatoh().pridejVec(vec)){
                     plan.zmenaZlatych(-postava.getCena());
+                    plan.notifyObservers();
                  }else{
                      return "Nemáš v batohu dostatek místa, něco vyhoď a zkus to znova.";
                  }

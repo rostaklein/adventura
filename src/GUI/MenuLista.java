@@ -83,7 +83,7 @@ public class MenuLista extends MenuBar{
 
             webView.getEngine().load(Main.class.getResource("/zdroje/napoveda.html").toExternalForm());
 
-            stage.setScene(new Scene(webView, 500, 500));
+            stage.setScene(new Scene(webView, 1200, 500));
             stage.show();
         });
     }

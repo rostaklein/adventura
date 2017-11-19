@@ -52,6 +52,12 @@ public interface IHra
      *  @return     odkaz na herní plán
      */
      public HerniPlan getHerniPlan();
+
+    /**
+     * Zjištění stavu konce hry (zda hráč vyhrál či nikoliv)
+     * @return zda zdáč vyhrál
+     */
+     public boolean isVyhra();
     
     //== ZDĚDĚNÉ METODY ========================================================
     //== INTERNÍ DATOVÉ TYPY ===================================================

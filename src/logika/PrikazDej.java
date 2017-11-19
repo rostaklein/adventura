@@ -66,6 +66,7 @@ class PrikazDej implements IPrikaz {
              }else{
                  plan.getBatoh().zahodVec(vec.getNazev());
                  plan.getBatoh().pridejVec(coDal);
+                 plan.notifyObservers();
                  return postava.getRecVymena();
              }
         }

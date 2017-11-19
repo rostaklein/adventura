@@ -27,6 +27,7 @@ public class Postava
     private String recChce;
     boolean probehlaVymena=false;
     boolean obchoduje=false;
+    boolean necoChce = false;
     /**
      * Vytvoření základní postavy, která má pouze jméno a základní text. Neumí obchodovat ani vyměňovat věci.
      *
@@ -49,6 +50,7 @@ public class Postava
      * @param recChce - pokud postava při výměně nabízenou věc přijme, řekne tohle
      */
     public void nastavVymenu(Vec coChce, Vec coMa, String mluvPo, String recNechce, String recChce){
+        this.necoChce=false;
         this.coChce=coChce;
         this.coMa=coMa;
         this.mluvPred=mluvPred;
@@ -177,5 +179,9 @@ public class Postava
      */
     public Vec getCoChce(){
         return coChce;
+    }
+
+    public boolean isProbehlaVymena() {
+        return probehlaVymena;
     }
 }

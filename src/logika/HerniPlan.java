@@ -21,6 +21,7 @@ public class HerniPlan implements Subject{
     private Prostor aktualniProstor;
     private int stavZlatych;
     private Batoh batoh;
+    private Postava postavaDialog = null;
     
     private List<Observer> listObserveru = new ArrayList<Observer>();
     
@@ -88,7 +89,7 @@ public class HerniPlan implements Subject{
         trpaslik.nastavVymenu(helma, saty, "Helmu už ti zpátky nedám. Teď už běž pryč!", "Tohle mi je k ničemu. Zkus něco lesklejšího.", "No perfektní práce! Vypadáš dost chudě... Vezmi si tyhle šaty, jsou mi k ničemu a už mazej pryč.");
         ork.nastavVymenu(null, helma, "Uggh, aagh.", "Huh.", "Hrrrrghah!!");
         princezna.nastavVymenu(saty, null, "Děkuji ti, teď už jsem spokojená.", "Tak to ani nezkoušej, pěkně si mě tím akorát urazil.", "Díky, opilý pobudo. Nepočítej ale s tím, že bys měl dostat moji ruku. Možná půl soudku piva.");
-        rytir.nastavProdej(mec, 175, "Vše co jsem ti mohl prodat už máš.", "Tak to je málo můj milej, musíš sehnat více zlatejch.", "No podívejme seee, penízky. Tady máš na oplátku můj starej meč.");
+        rytir.nastavProdej(mec, 150, "Vše co jsem ti mohl prodat už máš.", "Tak to je málo můj milej, musíš sehnat více zlatejch.", "No podívejme seee, penízky. Tady máš na oplátku můj starej meč.");
         
         //vložení postav do prostoru
         kovar.vlozPostavu(trpaslik);
@@ -128,6 +129,7 @@ public class HerniPlan implements Subject{
      */
     public void zmenaZlatych(int zmena){
         stavZlatych+=zmena;
+        notifyObservers();
     }
     
     /**
@@ -137,6 +139,7 @@ public class HerniPlan implements Subject{
      */
     public void setAktualniProstor(Prostor prostor) {
        aktualniProstor = prostor;
+       postavaDialog = null;
        notifyObservers();
     }
     
@@ -148,6 +151,22 @@ public class HerniPlan implements Subject{
      public Batoh getBatoh() {
          return batoh;
      };
+
+    /**
+     * @return postava s kterou hráč aktuálně vede dialog.
+     */
+    public Postava getPostavaDialog() {
+        return postavaDialog;
+    }
+
+
+    /**
+     * Nastaví postavu, se kterou hráč aktuálně vede dialog.
+     * @param postavaDialog
+     */
+    public void setPostavaDialog(Postava postavaDialog) {
+        this.postavaDialog = postavaDialog;
+    }
 
     @Override
     public void registerObservers(Observer observer) {

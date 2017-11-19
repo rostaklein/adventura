@@ -127,7 +127,7 @@ public class Prostor {
      * @return Dlouhý popis prostoru
      */
     public String dlouhyPopis() {
-        return "Jsi v mistnosti/prostoru: " + nazev + ".\n";
+        return "---\n";
 
     }
 
@@ -207,6 +207,7 @@ public class Prostor {
     
     public void vlozVec(Vec vec) {
         veci.put(vec.getNazev(), vec);
+
     }
     
     public Vec odeberVec(String nazev) {

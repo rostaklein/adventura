@@ -16,6 +16,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import logika.IHra;
+import logika.Postava;
 import logika.Vec;
 import main.Main;
 import utils.Observer;
@@ -26,15 +27,13 @@ import utils.Observer;
  * @author     Rostislav Klein
  * @version    ZS 2017/2018
  */
-public class Batoh extends AnchorPane implements Observer {
+public class Dialog extends AnchorPane implements Observer {
     private IHra hra;
-    private ObservableList<Vec> predmety;
     private Main main;
-    private Label kapacita;
-    private Label stavZlatych;
-    private Label kliknutim;
+    private Label jmenoPostavy;
+    private VBox layout;
 
-    public Batoh(IHra hra, Main main){
+    public Dialog(IHra hra, Main main){
         this.hra = hra;
         this.main = main;
         hra.getHerniPlan().registerObservers(this);
@@ -56,9 +55,28 @@ public class Batoh extends AnchorPane implements Observer {
      * Inicializace GUI prvku.
      */
     private void init(){
+        layout = new VBox();
+        jmenoPostavy = new Label();
+        jmenoPostavy.setAlignment(Pos.CENTER);
+        jmenoPostavy.setFont(Font.font("Arial", FontWeight.LIGHT, 12));
+
+        layout.setAlignment(Pos.CENTER);
+        layout.setSpacing(10);
+        layout.setPadding(new Insets(10));
+        layout.getChildren().addAll(jmenoPostavy);
+        this.getChildren().addAll(layout);
+        update();
+    }
+
+
+    public ListView<Vec> obchodPostavy(Postava postava){
+        ObservableList<Vec> predmety;
+        Vec predmet = postava.getCoMa();
         predmety = FXCollections.observableArrayList();
+        predmety.addAll(predmet);
         ListView<Vec> listPredmetu = new ListView<>(predmety);
-        listPredmetu.setPrefHeight(120);
+        listPredmetu.setOrientation(Orientation.HORIZONTAL);
+        listPredmetu.setPrefHeight(50);
         listPredmetu.setCellFactory(param -> new ListCell<Vec>() {
             private ImageView imageView = new ImageView();
             @Override
@@ -68,7 +86,7 @@ public class Batoh extends AnchorPane implements Observer {
                     setText(null);
                     setGraphic(null);
                 } else {
-                    setText(item.getNazev());
+                    setText(item.getNazev() +" ("+postava.getCena()+" zlatých)");
                     imageView.setImage(item.getObrazek());
                     imageView.setFitHeight(40);
                     imageView.setPreserveRatio(true);
@@ -76,11 +94,7 @@ public class Batoh extends AnchorPane implements Observer {
                 }
                 this.setOnMousePressed(event -> {
                     //hra.getHerniPlan().setAktualniProstor(item);
-                    if(hra.getHerniPlan().getPostavaDialog()!=null){
-                        main.zpracujPrikaz("dej "+item.getNazev()+" "+hra.getHerniPlan().getPostavaDialog().getJmeno());
-                    }else{
-                        main.zpracujPrikaz("zahoď "+item.getNazev());
-                    }
+                    main.zpracujPrikaz("obchod "+postava.getCena()+" "+postava.getJmeno());
                     hra.getHerniPlan().notifyObservers();
                     //hra.zpracujPrikaz();
                     update();
@@ -88,45 +102,24 @@ public class Batoh extends AnchorPane implements Observer {
             }
 
         });
-        Label labelBatoh = new Label("Obsah batohu:");
-        kapacita = new Label();
-        stavZlatych = new Label();
-        kliknutim = new Label();
-        labelBatoh.setFont(Font.font("Arial", FontWeight.BOLD, 14));
-        stavZlatych.setFont(Font.font("Arial", FontWeight.BOLD, 14));
 
-        VBox batohLayout = new VBox();
-        batohLayout.setAlignment(Pos.CENTER);
-        batohLayout.setSpacing(10);
-        batohLayout.setPadding(new Insets(10));
-
-        HBox zlate = new HBox();
-
-        ImageView zlateIcon = new ImageView(new Image(Main.class.getResourceAsStream("/zdroje/gold-mini.png"), 17, 17, true, true));
-        zlate.getChildren().addAll(stavZlatych, zlateIcon);
-        zlate.setSpacing(10);
-        zlate.setAlignment(Pos.CENTER);
-
-        batohLayout.getChildren().addAll(labelBatoh, kapacita, listPredmetu, zlate, kliknutim);
-        this.getChildren().addAll(batohLayout);
-        update();
+        return listPredmetu;
     }
-
-
 
     @Override
     public void update() {
-        if(!hra.getHerniPlan().getBatoh().getObsahBatohu().isEmpty()){
-            if(hra.getHerniPlan().getPostavaDialog()==null){
-                kliknutim.setText("Kliknutím věc zahodíš.");
+        Postava dialogPostava = hra.getHerniPlan().getPostavaDialog();
+        if(dialogPostava == null){
+            layout.getChildren().setAll();
+        }else{
+            if(dialogPostava.getCoMa()!=null && !dialogPostava.isProbehlaVymena()){
+                jmenoPostavy.setText("Mluvíš s " + dialogPostava.getJmeno()+" a má u sebe:");
+                layout.getChildren().addAll(jmenoPostavy, obchodPostavy(dialogPostava));
             }else{
-                kliknutim.setText("Kliknutím věc předáš postavě - "+hra.getHerniPlan().getPostavaDialog().getJmeno());
+                jmenoPostavy.setText("Mluvíš s " + dialogPostava.getJmeno());
+                layout.getChildren().add(jmenoPostavy);
             }
         }
-        kapacita.setText("váha: "+hra.getHerniPlan().getBatoh().getAktualniVaha()+"/"+hra.getHerniPlan().getBatoh().getMaxVaha());
-        stavZlatych.setText(hra.getHerniPlan().getAktualniPocetZlatych()+" zlatých");
-        predmety.setAll();
-        predmety.addAll(hra.getHerniPlan().getBatoh().getObsahBatohu().values());
 
     }
 }

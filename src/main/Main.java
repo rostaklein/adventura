@@ -39,6 +39,7 @@ public class Main extends Application {
     private Predmety predmety;
     private Postavy postavy;
     private Batoh batoh;
+    private Dialog aktualniDialog;
 
     private Stage stage;
 
@@ -57,18 +58,21 @@ public class Main extends Application {
         predmety = new Predmety(hra, this);
         postavy = new Postavy(hra, this);
         batoh = new Batoh(hra, this);
+        aktualniDialog = new Dialog(hra, this);
 
         this.setStage(primaryStage);
         
         BorderPane borderPane = new BorderPane();
         
-        
+        VBox centralLayout = new VBox();
+        centralLayout.setSpacing(10);
+        centralLayout.setPadding(new Insets(10));
+
         centralText = new TextArea();
         centralText.setText(hra.vratUvitani());
         centralText.setEditable(false);
         centralText.setWrapText(true);
-  
-        borderPane.setCenter(centralText);
+        centralText.setPrefHeight(400);
         
         Label zadejPrikazLabel = new Label("Zadej příkaz: ");
         Font formatTextu = Font.font("Arial", FontWeight.BOLD, 14);
@@ -100,16 +104,24 @@ public class Main extends Application {
         textFieldLine.getChildren().addAll(zadejPrikazLabel, zadejPrikazTextField);
         textFieldLine.setAlignment(Pos.CENTER);
         textFieldLine.setSpacing(10);
+
         VBox dolniLista = new VBox();
         dolniLista.setAlignment(Pos.CENTER);
-        dolniLista.getChildren().addAll(textFieldLine, prikazy);
+        centralLayout.getChildren().addAll(centralText, textFieldLine);
+        dolniLista.getChildren().addAll(prikazy);
 
+        VBox rightLayout = new VBox();
+        rightLayout.getChildren().addAll(batoh, aktualniDialog);
+
+        borderPane.setCenter(centralLayout);
         borderPane.setBottom(dolniLista);
         borderPane.setLeft(mapa);
         borderPane.setTop(menuLista);
-        borderPane.setRight(batoh);
+        borderPane.setRight(rightLayout);
 
-        Scene scene = new Scene(borderPane, 1300, 550);
+
+
+        Scene scene = new Scene(borderPane, 1300, 500);
 
         primaryStage.setTitle("Adventura");
 
@@ -129,10 +141,17 @@ public class Main extends Application {
 
         if(hra.konecHry()){
             zadejPrikazTextField.setEditable(false);
+
             vychody.setDisable(true);
             predmety.setDisable(true);
             postavy.setDisable(true);
             batoh.setDisable(true);
+            hra.getHerniPlan().setPostavaDialog(null);
+            if(hra.isVyhra()){
+                mapa.mapaText("Gratuluji k výhře! :)");
+            }else{
+                mapa.mapaText("Bohužel, tentokrát to nevyšlo :(");
+            }
             centralText.appendText(hra.vratEpilog());
         }
     };
@@ -168,11 +187,14 @@ public class Main extends Application {
         this.vychody.newGame(hra);
         this.predmety.newGame(hra);
         this.postavy.newGame(hra);
+        this.batoh.newGame(hra);
+        this.aktualniDialog.newGame(hra);
 
         this.vychody.setDisable(false);
         this.predmety.setDisable(false);
         this.postavy.setDisable(false);
         this.batoh.setDisable(false);
+        this.aktualniDialog.setDisable(false);
 
         this.centralText.setText(hra.vratUvitani());
         this.zadejPrikazTextField.setEditable(true);

@@ -43,6 +43,8 @@ class PrikazMluv implements IPrikaz {
             return "Tato postava zde není.";
         }
         else {
+            plan.setPostavaDialog(postava);
+            plan.notifyObservers();
             return postava.getJmeno()+" říká: '"+postava.getMluv()+"'";
         }
     }

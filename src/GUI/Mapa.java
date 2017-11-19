@@ -5,12 +5,19 @@
  */
 package GUI;
 
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import logika.IHra;
 import main.Main;
 import utils.Observer;
+
+import java.awt.*;
 
 /**
  * GUI prvek mapy obsahuje obrázek reprezentující mapu adventury. Po mapě se pohybuje (nastavováním posLeft a posTop obrázek hrdiny.
@@ -44,7 +51,22 @@ public class Mapa extends AnchorPane implements Observer{
         hra.getHerniPlan().removeObservers(this);
         hra = novaHra;
         hra.getHerniPlan().registerObservers(this);
+        init();
         update();
+    }
+
+    public void mapaText(String text){
+        this.getChildren().setAll();
+        HBox prohralBox = new HBox();
+        Label prohral = new Label(text);
+        prohral.setFont(Font.font("Arial", FontWeight.BOLD, 24));
+
+        prohralBox.setAlignment(Pos.CENTER);
+        prohralBox.setPrefSize(649, 395);
+        prohralBox.getChildren().addAll(prohral);
+
+
+        this.getChildren().addAll(prohralBox);
     }
     
     @Override
