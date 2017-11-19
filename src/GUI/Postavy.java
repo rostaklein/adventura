@@ -11,7 +11,11 @@ import logika.Postava;
 import main.Main;
 import utils.Observer;
 
-
+/**
+ * GUI prvek zobrazující aktuální postavy v prostoru. Při kliku na jmméno postavy s ní hráč promluví.
+ * @author     Rostislav Klein
+ * @version    ZS 2017/2018
+ */
 public class Postavy extends AnchorPane implements Observer {
     private IHra hra;
     private ObservableList<Postava> postavy;
@@ -24,12 +28,17 @@ public class Postavy extends AnchorPane implements Observer {
         init();
     }
 
+    /**
+     * Nastaví sledování nové hry.
+     * @param novaHra
+     */
     public void newGame(IHra novaHra){
         hra.getHerniPlan().removeObservers(this);
         hra = novaHra;
         hra.getHerniPlan().registerObservers(this);
         update();
     }
+
 
     private void init(){
         postavy = FXCollections.observableArrayList();

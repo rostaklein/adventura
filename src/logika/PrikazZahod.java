@@ -22,7 +22,7 @@ public class PrikazZahod implements IPrikaz
     /**
     *  Konstruktor třídy
     *  
-    *  @param plan herní plán, ve kterém se bude ve hře "chodit" 
+    *  @param hPlan herní plán, ve kterém se bude ve hře "chodit"
     */
     public PrikazZahod(HerniPlan hPlan)
     {
@@ -51,6 +51,7 @@ public class PrikazZahod implements IPrikaz
         }
          
          hPlan.getAktualniProstor().vlozVec(vec);
+         hPlan.notifyObservers();
          return "Vec " + nazev + " byla zahozena, leží vedle vás na zemi.";
     }
    /**

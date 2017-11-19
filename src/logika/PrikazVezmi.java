@@ -20,7 +20,7 @@ public class PrikazVezmi implements IPrikaz
     /**
     *  Konstruktor třídy
     *  
-    *  @param plan herní plán, ve kterém se bude ve hře "chodit" 
+    *  @param hPlan herní plán, ve kterém se bude ve hře "chodit"
     */
     public PrikazVezmi(HerniPlan hPlan)
     {
@@ -55,7 +55,9 @@ public class PrikazVezmi implements IPrikaz
         //vložíme věc do batohu
          
          if (hPlan.getBatoh().pridejVec(vec)) {
+             hPlan.notifyObservers();
              return "Vec " + nazev + " byla vložena do batohu";
+
          } else {
              hPlan.getAktualniProstor().vlozVec(vec);
              return nazev +" se do batohu už bohužel nevejde.";

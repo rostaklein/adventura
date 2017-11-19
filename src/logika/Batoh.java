@@ -97,6 +97,13 @@ public class Batoh
             }
             return vypis; 
         }
-    } 
+    }
 
+    /**
+     * Vrací objekty z obsahu batohu.
+     * @return obsah batohu
+     */
+    public Map<String, Vec> getObsahBatohu() {
+        return obsahBatohu;
+    }
 }

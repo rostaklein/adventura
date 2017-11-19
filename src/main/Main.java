@@ -6,6 +6,7 @@
 package main;
 
 import GUI.*;
+import GUI.Batoh;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -37,6 +38,7 @@ public class Main extends Application {
     private Vychody vychody;
     private Predmety predmety;
     private Postavy postavy;
+    private Batoh batoh;
 
     private Stage stage;
 
@@ -54,6 +56,7 @@ public class Main extends Application {
         vychody = new Vychody(hra, this);
         predmety = new Predmety(hra, this);
         postavy = new Postavy(hra, this);
+        batoh = new Batoh(hra, this);
 
         this.setStage(primaryStage);
         
@@ -104,7 +107,7 @@ public class Main extends Application {
         borderPane.setBottom(dolniLista);
         borderPane.setLeft(mapa);
         borderPane.setTop(menuLista);
-        //borderPane.setRight(vychody);
+        borderPane.setRight(batoh);
 
         Scene scene = new Scene(borderPane, 1200, 550);
 
@@ -125,6 +128,7 @@ public class Main extends Application {
             vychody.setDisable(true);
             predmety.setDisable(true);
             postavy.setDisable(true);
+            batoh.setDisable(true);
             centralText.appendText(hra.vratEpilog());
         }
     };
@@ -159,10 +163,12 @@ public class Main extends Application {
         this.mapa.newGame(hra);
         this.vychody.newGame(hra);
         this.predmety.newGame(hra);
+        this.postavy.newGame(hra);
 
         this.vychody.setDisable(false);
         this.predmety.setDisable(false);
         this.postavy.setDisable(false);
+        this.batoh.setDisable(false);
 
         this.centralText.setText(hra.vratUvitani());
         this.zadejPrikazTextField.setEditable(true);

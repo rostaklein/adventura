@@ -2,13 +2,9 @@ package GUI;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import logika.IHra;
 import logika.Prostor;
@@ -16,7 +12,11 @@ import main.Main;
 import utils.Observer;
 
 
-
+/**
+ * GUI prvek zobrazující východy z aktuálního prostoru. Při kliku na prostor do něj hráč přejde.
+ * @author     Rostislav Klein
+ * @version    ZS 2017/2018
+ */
 public class Vychody extends AnchorPane implements Observer {
     private IHra hra;
     private ObservableList<Prostor> vychody;
@@ -29,6 +29,10 @@ public class Vychody extends AnchorPane implements Observer {
         init();
     }
 
+    /**
+     * Nastaví sledování nové hry.
+     * @param novaHra
+     */
     public void newGame(IHra novaHra){
         hra.getHerniPlan().removeObservers(this);
         hra = novaHra;

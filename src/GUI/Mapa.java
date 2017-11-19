@@ -13,8 +13,9 @@ import main.Main;
 import utils.Observer;
 
 /**
- *
- * @author rostaklein
+ * GUI prvek mapy obsahuje obrázek reprezentující mapu adventury. Po mapě se pohybuje (nastavováním posLeft a posTop obrázek hrdiny.
+ * @author     Rostislav Klein
+ * @version    ZS 2017/2018
  */
 public class Mapa extends AnchorPane implements Observer{
 
@@ -34,7 +35,11 @@ public class Mapa extends AnchorPane implements Observer{
         
         update();
     }
-    
+
+    /**
+     * Nastaví sledování nové hry.
+     * @param novaHra
+     */
     public void newGame(IHra novaHra){
         hra.getHerniPlan().removeObservers(this);
         hra = novaHra;

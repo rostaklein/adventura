@@ -3,29 +3,32 @@ package GUI;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Orientation;
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import logika.IHra;
-import logika.Prostor;
 import logika.Vec;
 import main.Main;
 import utils.Observer;
 
 
 /**
- * GUI prvek zobrazující aktuální věci v prostoru. Při kliku na item jej sebere do batohu.
+ * GUI prvek zobrazující aktuální obsah batohu. Při kliku na item jej zahodí.
  * @author     Rostislav Klein
  * @version    ZS 2017/2018
  */
-public class Predmety extends AnchorPane implements Observer {
+public class Batoh extends AnchorPane implements Observer {
     private IHra hra;
     private ObservableList<Vec> predmety;
     private Main main;
 
-    public Predmety(IHra hra, Main main){
+    public Batoh(IHra hra, Main main){
         this.hra = hra;
         this.main = main;
         hra.getHerniPlan().registerObservers(this);
@@ -43,11 +46,13 @@ public class Predmety extends AnchorPane implements Observer {
         update();
     }
 
+    /**
+     * Inicializace GUI prvku.
+     */
     private void init(){
         predmety = FXCollections.observableArrayList();
         ListView<Vec> listPredmetu = new ListView<>(predmety);
-        listPredmetu.setOrientation(Orientation.HORIZONTAL);
-        listPredmetu.setPrefHeight(50);
+        listPredmetu.setPrefHeight(150);
         listPredmetu.setCellFactory(param -> new ListCell<Vec>() {
             private ImageView imageView = new ImageView();
             @Override
@@ -65,14 +70,20 @@ public class Predmety extends AnchorPane implements Observer {
                 }
                 this.setOnMousePressed(event -> {
                     //hra.getHerniPlan().setAktualniProstor(item);
-                    main.zpracujPrikaz("vezmi "+item.getNazev());
+                    main.zpracujPrikaz("zahoď "+item.getNazev());
                     //hra.zpracujPrikaz();
                     update();
                 });
             }
 
         });
-        this.getChildren().addAll(listPredmetu);
+        Label labelBatoh = new Label("Obsah batohu:");
+        labelBatoh.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+
+        VBox batohLayout = new VBox();
+        batohLayout.setAlignment(Pos.CENTER);
+        batohLayout.getChildren().addAll(labelBatoh, listPredmetu);
+        this.getChildren().addAll(batohLayout);
         update();
     }
 
@@ -81,6 +92,6 @@ public class Predmety extends AnchorPane implements Observer {
     @Override
     public void update() {
         predmety.setAll();
-        predmety.addAll(hra.getHerniPlan().getAktualniProstor().getVeci().values());
+        predmety.addAll(hra.getHerniPlan().getBatoh().getObsahBatohu().values());
     }
 }

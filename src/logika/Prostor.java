@@ -247,10 +247,17 @@ public class Prostor {
         return posTop;
     }
 
+
+    /**
+     * @return seznam věcí v prostoru
+     */
     public Map<String, Vec> getVeci() {
         return veci;
     }
 
+    /**
+     * @return seznam postav v prostoru
+     */
     public Map<String, Postava> getPostavy() {
         return postavy;
     }
