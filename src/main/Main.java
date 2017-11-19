@@ -24,7 +24,7 @@ import logika.*;
 import uiText.TextoveRozhrani;
 
 /**
- *
+ *  Start celé aplikace
  * @author xzenj02, kler00
  */
 public class Main extends Application {
@@ -109,7 +109,7 @@ public class Main extends Application {
         borderPane.setTop(menuLista);
         borderPane.setRight(batoh);
 
-        Scene scene = new Scene(borderPane, 1200, 550);
+        Scene scene = new Scene(borderPane, 1300, 550);
 
         primaryStage.setTitle("Adventura");
 
@@ -118,6 +118,10 @@ public class Main extends Application {
         zadejPrikazTextField.requestFocus();
     }
 
+    /**
+     * Zpracuje String příkazu, vypíše odpověď. Pokus hra skončila, nastaví gui stav disabled.
+     * @param prikaz
+     */
     public void zpracujPrikaz(String prikaz){
         String odpovedHry = hra.zpracujPrikaz(prikaz);
         centralText.appendText("\n" + prikaz + "\n");

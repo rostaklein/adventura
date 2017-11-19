@@ -27,6 +27,7 @@ public class Batoh extends AnchorPane implements Observer {
     private IHra hra;
     private ObservableList<Vec> predmety;
     private Main main;
+    private Label kapacita;
 
     public Batoh(IHra hra, Main main){
         this.hra = hra;
@@ -78,11 +79,13 @@ public class Batoh extends AnchorPane implements Observer {
 
         });
         Label labelBatoh = new Label("Obsah batohu:");
+        kapacita = new Label();
         labelBatoh.setFont(Font.font("Arial", FontWeight.BOLD, 14));
 
         VBox batohLayout = new VBox();
         batohLayout.setAlignment(Pos.CENTER);
-        batohLayout.getChildren().addAll(labelBatoh, listPredmetu);
+        batohLayout.setSpacing(10);
+        batohLayout.getChildren().addAll(labelBatoh, kapacita, listPredmetu);
         this.getChildren().addAll(batohLayout);
         update();
     }
@@ -91,7 +94,9 @@ public class Batoh extends AnchorPane implements Observer {
 
     @Override
     public void update() {
+        kapacita.setText("váha: "+hra.getHerniPlan().getBatoh().getAktualniVaha()+"/"+hra.getHerniPlan().getBatoh().getMaxVaha());
         predmety.setAll();
         predmety.addAll(hra.getHerniPlan().getBatoh().getObsahBatohu().values());
+
     }
 }

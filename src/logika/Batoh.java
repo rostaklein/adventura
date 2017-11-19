@@ -106,4 +106,8 @@ public class Batoh
     public Map<String, Vec> getObsahBatohu() {
         return obsahBatohu;
     }
+
+    public int getMaxVaha() {
+        return maxVaha;
+    }
 }
