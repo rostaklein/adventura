@@ -107,7 +107,8 @@ public class Main extends Application {
 
         VBox dolniLista = new VBox();
         dolniLista.setAlignment(Pos.CENTER);
-        centralLayout.getChildren().addAll(centralText, textFieldLine);
+        //centralLayout.getChildren().addAll(centralText, textFieldLine);
+        centralLayout.getChildren().addAll(centralText);
         dolniLista.getChildren().addAll(prikazy);
 
         VBox rightLayout = new VBox();

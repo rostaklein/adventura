@@ -109,9 +109,8 @@ public class Dialog extends AnchorPane implements Observer {
     @Override
     public void update() {
         Postava dialogPostava = hra.getHerniPlan().getPostavaDialog();
-        if(dialogPostava == null){
-            layout.getChildren().setAll();
-        }else{
+        layout.getChildren().setAll();
+        if(dialogPostava != null){
             if(dialogPostava.getCoMa()!=null && !dialogPostava.isProbehlaVymena()){
                 jmenoPostavy.setText("Mluvíš s " + dialogPostava.getJmeno()+" a má u sebe:");
                 layout.getChildren().addAll(jmenoPostavy, obchodPostavy(dialogPostava));
