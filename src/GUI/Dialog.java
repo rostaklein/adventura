@@ -1,13 +1,15 @@
 package GUI;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -20,6 +22,8 @@ import logika.Postava;
 import logika.Vec;
 import main.Main;
 import utils.Observer;
+
+import javax.print.attribute.IntegerSyntax;
 
 
 /**
@@ -58,7 +62,7 @@ public class Dialog extends AnchorPane implements Observer {
         layout = new VBox();
         jmenoPostavy = new Label();
         jmenoPostavy.setAlignment(Pos.CENTER);
-        jmenoPostavy.setFont(Font.font("Arial", FontWeight.LIGHT, 12));
+        //jmenoPostavy.setFont(Font.font("Arial", FontWeight.LIGHT, 14));
 
         layout.setAlignment(Pos.CENTER);
         layout.setSpacing(10);
@@ -106,6 +110,44 @@ public class Dialog extends AnchorPane implements Observer {
         return listPredmetu;
     }
 
+
+    public VBox hraniKostek(Integer aktualPocet){
+        VBox vbox = new VBox();
+        Label label = new Label("Potáhnutím zvolíš částku");
+        Label labelvsad = new Label();
+        label.setAlignment(Pos.CENTER);
+        labelvsad.setAlignment(Pos.CENTER);
+
+        Slider slider = new Slider();
+        slider.setMin(0);
+        slider.setMax(aktualPocet);
+        slider.setShowTickLabels(true);
+        slider.setShowTickMarks(true);
+        slider.setMajorTickUnit(50);
+        slider.setMinorTickCount(5);
+        slider.setBlockIncrement(10);
+
+        Button vsadit = new Button("Zvolte částku");
+        vsadit.setDisable(true);
+        slider.valueChangingProperty().addListener((observable, oldValue, newValue) -> {
+            Double val = slider.getValue();
+            vsadit.setText("Vsadit "+val.intValue()+" zlatých");
+            vsadit.setDisable(false);
+            //main.zpracujPrikaz("vsaď "+val.intValue()+" pobuda");
+        });
+        slider.setPadding(new Insets(5));
+
+        vsadit.setOnAction(event -> {
+            Double val = slider.getValue();
+            main.zpracujPrikaz("vsaď "+val.intValue()+" pobuda");
+        });
+
+        vbox.getChildren().setAll(label, slider, vsadit);
+        vbox.setAlignment(Pos.CENTER);
+
+        return vbox;
+    }
+
     @Override
     public void update() {
         Postava dialogPostava = hra.getHerniPlan().getPostavaDialog();
@@ -114,6 +156,9 @@ public class Dialog extends AnchorPane implements Observer {
             if(dialogPostava.getCoMa()!=null && !dialogPostava.isProbehlaVymena()){
                 jmenoPostavy.setText("Mluvíš s " + dialogPostava.getJmeno()+" a má u sebe:");
                 layout.getChildren().addAll(jmenoPostavy, obchodPostavy(dialogPostava));
+            }else if(dialogPostava.getJmeno().equals("pobuda")){
+                jmenoPostavy.setText("Pobuda si s tebou chce zahrát kostky!");
+                layout.getChildren().addAll(jmenoPostavy, hraniKostek(hra.getHerniPlan().getAktualniPocetZlatych()));
             }else{
                 jmenoPostavy.setText("Mluvíš s " + dialogPostava.getJmeno());
                 layout.getChildren().add(jmenoPostavy);

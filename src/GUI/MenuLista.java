@@ -69,7 +69,7 @@ public class MenuLista extends MenuBar{
             Alert oProgramuAlert = new Alert(Alert.AlertType.INFORMATION);
             oProgramuAlert.setTitle("O programu");
             oProgramuAlert.setHeaderText("Nejlepší adventura na světě, asi");
-            oProgramuAlert.setContentText("Vytvořeno v rámci kurzu Softwarového inženýrství na VŠE v Praze v roce 2017.");
+            oProgramuAlert.setContentText("Vytvořeno v rámci kurzu Softwarového inženýrství na VŠE v Praze v roce 2017. Vytvořil Rostislav Klein.");
 
 
             oProgramuAlert.showAndWait();

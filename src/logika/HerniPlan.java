@@ -89,7 +89,7 @@ public class HerniPlan implements Subject{
         trpaslik.nastavVymenu(helma, saty, "Helmu už ti zpátky nedám. Teď už běž pryč!", "Tohle mi je k ničemu. Zkus něco lesklejšího.", "No perfektní práce! Vypadáš dost chudě... Vezmi si tyhle šaty, jsou mi k ničemu a už mazej pryč.");
         ork.nastavVymenu(null, helma, "Uggh, aagh.", "Huh.", "Hrrrrghah!!");
         princezna.nastavVymenu(saty, null, "Děkuji ti, teď už jsem spokojená.", "Tak to ani nezkoušej, pěkně si mě tím akorát urazil.", "Díky, opilý pobudo. Nepočítej ale s tím, že bys měl dostat moji ruku. Možná půl soudku piva.");
-        rytir.nastavProdej(mec, 150, "Vše co jsem ti mohl prodat už máš.", "Tak to je málo můj milej, musíš sehnat více zlatejch.", "No podívejme seee, penízky. Tady máš na oplátku můj starej meč.");
+        rytir.nastavProdej(mec, 175, "Vše co jsem ti mohl prodat už máš.", "Tak to je málo můj milej, musíš sehnat více zlatejch.", "No podívejme seee, penízky. Tady máš na oplátku můj starej meč.");
         
         //vložení postav do prostoru
         kovar.vlozPostavu(trpaslik);
