@@ -125,7 +125,7 @@ public class HerniPlan implements Subject{
     /**
      *  Metoda manipuluje s aktuálním počtem zlatých, zlaté jde odčítat i přičítat. (Podle znaménka přičítaného čísla.)
      *
-     *@param částka kladná, nebo záporná
+     *@param zmena částka kladná, nebo záporná
      */
     public void zmenaZlatych(int zmena){
         stavZlatych+=zmena;
@@ -135,7 +135,7 @@ public class HerniPlan implements Subject{
     /**
      *  Metoda nastaví aktuální prostor, používá se nejčastěji při přechodu mezi prostory
      *
-     *@param  prostor nový aktuální prostor
+     *@param prostor nový aktuální prostor
      */
     public void setAktualniProstor(Prostor prostor) {
        aktualniProstor = prostor;
@@ -162,7 +162,7 @@ public class HerniPlan implements Subject{
 
     /**
      * Nastaví postavu, se kterou hráč aktuálně vede dialog.
-     * @param postavaDialog
+     * @param postavaDialog postava, s kteoru se povede dialog
      */
     public void setPostavaDialog(Postava postavaDialog) {
         this.postavaDialog = postavaDialog;

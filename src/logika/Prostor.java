@@ -38,6 +38,8 @@ public class Prostor {
      * @param nazev nazev prostoru, jednoznačný identifikátor, jedno slovo nebo
      * víceslovný název bez mezer.
      * @param popis Popis prostoru.
+     * @param posLeft pozice obrázku v pixelech na mapě z levé strany
+     * @param posTop pozice obrázku v pixelech na mapě z horní strany
      */
     public Prostor(String nazev, String popis, double posLeft, double posTop) {
         this.nazev = nazev;

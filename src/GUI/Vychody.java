@@ -31,7 +31,7 @@ public class Vychody extends AnchorPane implements Observer {
 
     /**
      * Nastaví sledování nové hry.
-     * @param novaHra
+     * @param novaHra instance nové hry
      */
     public void newGame(IHra novaHra){
         hra.getHerniPlan().removeObservers(this);

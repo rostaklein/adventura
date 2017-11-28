@@ -43,7 +43,7 @@ public class Batoh extends AnchorPane implements Observer {
 
     /**
      * Nastaví sledování nové hry.
-     * @param novaHra
+     * @param novaHra nová instance hry
      */
     public void newGame(IHra novaHra){
         hra.getHerniPlan().removeObservers(this);
